@@ -1,7 +1,7 @@
 ---
 title: "Data and visualisation"
-subtitle: "<br><br> ENST 320: Environmental Data Science"
-author: "[https://enst320-2022sp.netlify.app/](https://enst320-2022sp.netlify.app/)"
+subtitle: "<br><br> ENST 222: Environmental Data Science"
+author: "[https://enst222.github.io/website/](https://enst222.github.io/website/)"
 output:
   xaringan::moon_reader:
     css: ["../xaringan-themer.css", "../slides.css"]
@@ -60,7 +60,7 @@ glimpse(starwars)
 ```
 
 ---
-
+class: inverse
 .question[
 How many rows and columns does this dataset have?
 What does each row represent?
@@ -76,7 +76,7 @@ knitr::include_graphics("img/starwars-help.png")
 ```
 
 ---
-
+class:inverse
 .question[
 How many rows and columns does this dataset have?
 ]
@@ -104,7 +104,7 @@ class: middle
 - But we might also calculate summary statistics and perform data wrangling/manipulation/transformation at (or before) this stage of the analysis -- this is what we'll focus on next
 
 ---
-
+class:inverse
 ## Mass vs. height
 
 .question[ 
@@ -155,7 +155,9 @@ class: middle
 > *"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey*
 
 - Data visualization is the creation and study of the visual representation of data
+
 - Many tools for visualizing data -- R is one of them
+
 - Many approaches/systems within R for making data visualizations -- **ggplot2** is one of them, and that's what we're going to use
 
 ---
@@ -200,10 +202,10 @@ ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
 ```
 
 ---
-
+class: inverse
 .question[ 
-- What are the functions doing the plotting?
-- What is the dataset being plotted?
+- What functions doing the plotting?
+- What dataset is being plotted?
 - Which variables map to which features (aesthetics) of the plot?
 - What does the warning mean?<sup>+</sup>
 ]
@@ -710,7 +712,7 @@ Finally, use a discrete colour scale that is designed to be perceived by viewers
 ]
 
 ---
-
+class: inverse
 ## Argument names
 
 .tip[
@@ -750,23 +752,23 @@ class: middle
 
 Commonly used characteristics of plotting characters that can be **mapped to a specific variable** in the data are
 
-- `colour`
+- `color`
 - `shape`
 - `size`
 - `alpha` (transparency)
 
 ---
 
-## Colour
+## Color
 
 .pull-left[
-```{r colour, fig.show = "hide", warning = FALSE}
+```{r color, fig.show = "hide", warning = FALSE}
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species)) + #<<
+           color = species)) + #<<
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
@@ -778,17 +780,17 @@ ggplot(penguins,
 
 ## Shape
 
-Mapped to a different variable than `colour`
+Mapped to a different variable than `color`
 
 .pull-left[
 ```{r shape-island, fig.show = "hide", warning = FALSE}
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = island)) + #<<
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
@@ -807,10 +809,10 @@ Mapped to same variable as `colour`
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = species)) + #<<
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
@@ -827,11 +829,11 @@ ggplot(penguins,
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = species,
            size = body_mass_g)) + #<<
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
@@ -848,12 +850,12 @@ ggplot(penguins,
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = species,
            size = body_mass_g,
            alpha = flipper_length_mm)) + #<<
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
@@ -890,11 +892,11 @@ ggplot(penguins,
 
 ## Mapping vs. setting
 
-- **Mapping:** Determine the size, alpha, etc. of points based on the values of a variable in the data
-  - goes into `aes()`
+**Mapping:** Determine the size, alpha, etc. of points based on the values of a variable in the data
+- goes into `aes()`
 
-- **Setting:** Determine the size, alpha, etc. of points **not** based on the values of a variable in the data
-  - goes into `geom_*()` (this was `geom_point()` in the previous example, but we'll learn about other geoms soon!)
+**Setting:** Determine the size, alpha, etc. of points **not** based on the values of a variable in the data
+- goes into `geom_*()` (this was `geom_point()` in the previous example, but we'll learn about other geoms soon!)
   
 ---
 
@@ -927,7 +929,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 ]
 
 ---
-
+class:inverse
 ## Various ways to facet
 
 .question[

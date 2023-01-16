@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Visualising data with ggplot2</title>
+    <title>Data and visualisation</title>
     <meta charset="utf-8" />
-    <meta name="author" content="datasciencebox.org" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
+    <meta name="author" content="https://enst222.github.io/website/" />
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
@@ -16,9 +15,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Visualising data with ggplot2
-## <br><br> Data Science in a Box
-### <a href="https://datasciencebox.org/">datasciencebox.org</a>
+# Data and visualisation
+## <br><br> ENST 222: Environmental Data Science
+### <a href="https://enst222.github.io/website/">https://enst222.github.io/website/</a>
 
 ---
 
@@ -30,7 +29,7 @@ layout: true
   
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://datasciencebox.org" target="_blank"&gt;datasciencebox.org&lt;/a&gt;
+&lt;a href="https://enst222.github.io/website" target="_blank"&gt;ENST 222: Environmental Data Science&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
@@ -40,28 +39,397 @@ layout: true
 
 class: middle
 
-# ggplot2 ❤️ 🐧
+# What is in a dataset?
 
 ---
 
-## ggplot2 `\(\in\)` tidyverse
+## Dataset terminology
+
+- Each row is an **observation**
+- Each column is a **variable**
+
+.small[
+
+
+```r
+starwars
+```
+
+```
+## # A tibble: 87 × 14
+##   name  height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1 Luke…    172    77 blond   fair    blue       19   male  mascu…
+## 2 C-3PO    167    75 &lt;NA&gt;    gold    yellow    112   none  mascu…
+## 3 R2-D2     96    32 &lt;NA&gt;    white,… red        33   none  mascu…
+## 4 Dart…    202   136 none    white   yellow     41.9 male  mascu…
+## 5 Leia…    150    49 brown   light   brown      19   fema… femin…
+## 6 Owen…    178   120 brown,… light   blue       52   male  mascu…
+## # … with 81 more rows, 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
+## #   starships &lt;list&gt;, and abbreviated variable names
+## #   ¹​hair_color, ²​skin_color, ³​eye_color, ⁴​birth_year
+```
+
+]
+
+---
+
+## Luke Skywalker
+
+![luke-skywalker](img/luke-skywalker.png)
+
+---
+
+## What's in the Star Wars data?
+
+Take a `glimpse` at the data:
+
+
+```r
+glimpse(starwars)
+```
+
+```
+## Rows: 87
+## Columns: 14
+## $ name       &lt;chr&gt; "Luke Skywalker", "C-3PO", "R2-D2", "Darth V…
+## $ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 1…
+## $ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, …
+## $ hair_color &lt;chr&gt; "blond", NA, NA, "none", "brown", "brown, gr…
+## $ skin_color &lt;chr&gt; "fair", "gold", "white, blue", "white", "lig…
+## $ eye_color  &lt;chr&gt; "blue", "yellow", "red", "yellow", "brown", …
+## $ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, N…
+## $ sex        &lt;chr&gt; "male", "none", "none", "male", "female", "m…
+## $ gender     &lt;chr&gt; "masculine", "masculine", "masculine", "masc…
+## $ homeworld  &lt;chr&gt; "Tatooine", "Tatooine", "Naboo", "Tatooine",…
+## $ species    &lt;chr&gt; "Human", "Droid", "Droid", "Human", "Human",…
+## $ films      &lt;list&gt; &lt;"The Empire Strikes Back", "Revenge of the…
+## $ vehicles   &lt;list&gt; &lt;"Snowspeeder", "Imperial Speeder Bike"&gt;, &lt;…
+## $ starships  &lt;list&gt; &lt;"X-wing", "Imperial shuttle"&gt;, &lt;&gt;, &lt;&gt;, "TI…
+```
+
+---
+class: inverse
+.question[
+How many rows and columns does this dataset have?
+What does each row represent?
+What does each column represent?
+]
+
+
+```r
+?starwars
+```
+
+&lt;img src="img/starwars-help.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+class:inverse
+.question[
+How many rows and columns does this dataset have?
+]
+
+.pull-left[
+
+```r
+nrow(starwars) # number of rows
+```
+
+```
+## [1] 87
+```
+
+```r
+ncol(starwars) # number of columns
+```
+
+```
+## [1] 14
+```
+
+```r
+dim(starwars)  # dimensions (row column)
+```
+
+```
+## [1] 87 14
+```
+]
+
+---
+
+class: middle
+
+# Exploratory data analysis
+
+---
+
+## What is EDA?
+
+- Exploratory data analysis (EDA) is an approach to analysing data sets to summarize its main characteristics
+- Often, this is visual -- this is what we'll focus on first
+- But we might also calculate summary statistics and perform data wrangling/manipulation/transformation at (or before) this stage of the analysis -- this is what we'll focus on next
+
+---
+class:inverse
+## Mass vs. height
+
+.question[ 
+How would you describe the relationship between mass and height of Starwars characters?
+What other variables would help us understand data points that don't follow the overall trend?
+Who is the not so tall but really chubby character?
+]
+
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Jabba!
+
+&lt;img src="img/jabbaplot.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: middle
+
+# Data visualization
+
+---
+
+## Data visualization
+
+&gt; *"The simple graph has brought more information to the data analyst's mind than any other device." --- John Tukey*
+
+- Data visualization is the creation and study of the visual representation of data
+
+- Many tools for visualizing data -- R is one of them
+
+- Many approaches/systems within R for making data visualizations -- **ggplot2** is one of them, and that's what we're going to use
+
+---
+
+## ggplot2 is part of the tidyverse
 
 .pull-left[
 &lt;img src="img/ggplot2-part-of-tidyverse.png" width="80%" style="display: block; margin: auto;" /&gt;
 ] 
 .pull-right[ 
 - **ggplot2** is tidyverse's data visualization package 
+- `gg` in "ggplot2" stands for Grammar of Graphics 
+- Inspired by the book **Grammar of Graphics** by Leland Wilkinson
+]
+
+---
+
+## Grammar of Graphics
+
+.pull-left-narrow[
+A grammar of graphics is a tool that enables us to concisely describe the components of a graphic
+]
+.pull-right-wide[
+&lt;img src="img/grammar-of-graphics.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.footnote[ Source: [BloggoType](http://bloggotype.blogspot.com/2016/08/holiday-notes2-grammar-of-graphics.html)]
+
+---
+
+## Mass vs. height
+
+
+```r
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(title = "Mass vs. height of Starwars characters",
+       x = "Height (cm)", y = "Weight (kg)")
+```
+
+```
+## Warning: Removed 28 rows containing missing values (geom_point).
+```
+
+&lt;img src="03-data-viz_files/figure-html/mass-height-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse
+.question[ 
+- What functions doing the plotting?
+- What dataset is being plotted?
+- Which variables map to which features (aesthetics) of the plot?
+- What does the warning mean?&lt;sup&gt;+&lt;/sup&gt;
+]
+
+
+```r
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  labs(title = "Mass vs. height of Starwars characters",
+       x = "Height (cm)", y = "Weight (kg)")
+```
+
+```
+## Warning: Removed 28 rows containing missing values (geom_point).
+```
+
+.footnote[
+&lt;sup&gt;+&lt;/sup&gt;Suppressing warning to subsequent slides to save space
+]
+
+---
+
+## Hello ggplot2!
+
+.pull-left-wide[
+- `ggplot()` is the main function in ggplot2
+- Plots are constructed in layers
 - Structure of the code for plots can be summarized as
 
 
 ```r
 ggplot(data = [dataset], 
-       mapping = aes(x = [x-variable], 
-                     y = [y-variable])) +
+       mapping = aes(x = [x-variable], y = [y-variable])) +
    geom_xxx() +
    other options
 ```
+
+- The ggplot2 package comes with the tidyverse
+
+
+```r
+library(tidyverse)
+```
+
+- For help with ggplot2, see [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/)
 ]
+
+---
+
+class: middle
+
+# Why do we visualize?
+
+---
+
+## Anscombe's quartet
+
+
+
+.pull-left[
+
+```
+##    set  x     y
+## 1    I 10  8.04
+## 2    I  8  6.95
+## 3    I 13  7.58
+## 4    I  9  8.81
+## 5    I 11  8.33
+## 6    I 14  9.96
+## 7    I  6  7.24
+## 8    I  4  4.26
+## 9    I 12 10.84
+## 10   I  7  4.82
+## 11   I  5  5.68
+## 12  II 10  9.14
+## 13  II  8  8.14
+## 14  II 13  8.74
+## 15  II  9  8.77
+## 16  II 11  9.26
+## 17  II 14  8.10
+## 18  II  6  6.13
+## 19  II  4  3.10
+## 20  II 12  9.13
+## 21  II  7  7.26
+## 22  II  5  4.74
+```
+] 
+.pull-right[
+
+```
+##    set  x     y
+## 23 III 10  7.46
+## 24 III  8  6.77
+## 25 III 13 12.74
+## 26 III  9  7.11
+## 27 III 11  7.81
+## 28 III 14  8.84
+## 29 III  6  6.08
+## 30 III  4  5.39
+## 31 III 12  8.15
+## 32 III  7  6.42
+## 33 III  5  5.73
+## 34  IV  8  6.58
+## 35  IV  8  5.76
+## 36  IV  8  7.71
+## 37  IV  8  8.84
+## 38  IV  8  8.47
+## 39  IV  8  7.04
+## 40  IV  8  5.25
+## 41  IV 19 12.50
+## 42  IV  8  5.56
+## 43  IV  8  7.91
+## 44  IV  8  6.89
+```
+]
+
+---
+
+## Summarising Anscombe's quartet
+
+
+```r
+quartet %&gt;%
+  group_by(set) %&gt;%
+  summarise(
+    mean_x = mean(x), 
+    mean_y = mean(y),
+    sd_x = sd(x),
+    sd_y = sd(y),
+    r = cor(x, y)
+  )
+```
+
+```
+## # A tibble: 4 × 6
+##   set   mean_x mean_y  sd_x  sd_y     r
+##   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 I          9   7.50  3.32  2.03 0.816
+## 2 II         9   7.50  3.32  2.03 0.816
+## 3 III        9   7.5   3.32  2.03 0.816
+## 4 IV         9   7.50  3.32  2.03 0.817
+```
+
+---
+
+## Visualizing Anscombe's quartet
+
+&lt;img src="03-data-viz_files/figure-html/quartet-plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Age at first kiss
+
+.question[ 
+Do you see anything out of the ordinary?
+]
+
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Facebook visits
+
+.question[ 
+How are people reporting lower vs. higher values of FB visits?
+]
+
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-15-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: middle
+
+# Let's look at ggplot2 more closely using 🐧
 
 ---
 
@@ -97,7 +465,7 @@ glimpse(penguins)
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -138,7 +506,7 @@ class: middle
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -156,7 +524,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -176,7 +544,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -198,7 +566,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -222,7 +590,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -248,7 +616,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -276,7 +644,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -306,7 +674,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -338,7 +706,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -372,7 +740,7 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -408,14 +776,14 @@ ggplot(data = penguins,
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-29-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -461,7 +829,7 @@ Finally, use a discrete colour scale that is designed to be perceived by viewers
 ]
 
 ---
-
+class: inverse
 ## Argument names
 
 .tip[
@@ -503,14 +871,14 @@ class: middle
 
 Commonly used characteristics of plotting characters that can be **mapped to a specific variable** in the data are
 
-- `colour`
+- `color`
 - `shape`
 - `size`
 - `alpha` (transparency)
 
 ---
 
-## Colour
+## Color
 
 .pull-left[
 
@@ -518,20 +886,20 @@ Commonly used characteristics of plotting characters that can be **mapped to a s
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-*          colour = species)) +
+*          color = species)) +
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 ---
 
 ## Shape
 
-Mapped to a different variable than `colour`
+Mapped to a different variable than `color`
 
 .pull-left[
 
@@ -539,14 +907,14 @@ Mapped to a different variable than `colour`
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
 *          shape = island)) +
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -561,14 +929,14 @@ Mapped to same variable as `colour`
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
 *          shape = species)) +
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -581,15 +949,15 @@ ggplot(penguins,
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = species,
 *          size = body_mass_g)) +
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -602,16 +970,16 @@ ggplot(penguins,
 ggplot(penguins,
        aes(x = bill_depth_mm, 
            y = bill_length_mm,
-           colour = species,
+           color = species,
            shape = species,
            size = body_mass_g,
 *          alpha = flipper_length_mm)) +
   geom_point() +
-  scale_colour_viridis_d()
+  scale_color_viridis_d()
 ```
 ]
 .pull-right[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -629,7 +997,7 @@ ggplot(penguins,
   geom_point()
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 **Setting**
@@ -642,18 +1010,18 @@ ggplot(penguins,
 * geom_point(size = 2, alpha = 0.5)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-37-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
 
 ## Mapping vs. setting
 
-- **Mapping:** Determine the size, alpha, etc. of points based on the values of a variable in the data
-  - goes into `aes()`
+**Mapping:** Determine the size, alpha, etc. of points based on the values of a variable in the data
+- goes into `aes()`
 
-- **Setting:** Determine the size, alpha, etc. of points **not** based on the values of a variable in the data
-  - goes into `geom_*()` (this was `geom_point()` in the previous example, but we'll learn about other geoms soon!)
+**Setting:** Determine the size, alpha, etc. of points **not** based on the values of a variable in the data
+- goes into `geom_*()` (this was `geom_point()` in the previous example, but we'll learn about other geoms soon!)
   
 ---
 
@@ -672,7 +1040,7 @@ class: middle
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -690,7 +1058,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 ]
 
 ---
-
+class:inverse
 ## Various ways to facet
 
 .question[
@@ -709,7 +1077,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 * facet_grid(species ~ sex)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-27-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-39-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -720,7 +1088,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 * facet_grid(sex ~ species)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-28-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-40-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -731,7 +1099,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 * facet_wrap(~ species)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-29-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-41-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -742,7 +1110,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 * facet_grid(. ~ species)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-30-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-42-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -753,7 +1121,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 * facet_wrap(~ species, ncol = 2)
 ```
 
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-31-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-43-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -783,7 +1151,7 @@ ggplot(
 ```
 ]
 .pull-right-wide[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-32-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -805,7 +1173,7 @@ ggplot(
 ```
 ]
 .pull-right-wide[
-&lt;img src="u2-d02-ggplot2_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-data-viz_files/figure-html/unnamed-chunk-45-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
