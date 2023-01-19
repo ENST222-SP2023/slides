@@ -167,8 +167,10 @@ class: middle
 
 ## What is EDA?
 
-- Exploratory data analysis (EDA) is an approach to analysing data sets to summarize its main characteristics
+- Exploratory data analysis (EDA) is an approach to analyzing data sets to summarize its main characteristics
+
 - Often, this is visual -- this is what we'll focus on first
+
 - But we might also calculate summary statistics and perform data wrangling/manipulation/transformation at (or before) this stage of the analysis -- this is what we'll focus on next
 
 ---
@@ -406,6 +408,7 @@ quartet %&gt;%
 &lt;img src="03-data-viz_files/figure-html/quartet-plot-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
+class: inverse
 
 ## Age at first kiss
 
@@ -416,7 +419,7 @@ Do you see anything out of the ordinary?
 &lt;img src="03-data-viz_files/figure-html/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
-
+class: inverse
 ## Facebook visits
 
 .question[ 
@@ -429,13 +432,13 @@ How are people reporting lower vs. higher values of FB visits?
 
 class: middle
 
-# Let's look at ggplot2 more closely using 🐧
+## Let's look at ggplot2 more closely using 🐧
 
 ---
 
 ## Data: Palmer Penguins
 
-Measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
+Data package containing measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
 
 .pull-left-narrow[
 &lt;img src="img/penguins.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -832,7 +835,7 @@ Finally, use a discrete colour scale that is designed to be perceived by viewers
 class: inverse
 ## Argument names
 
-.tip[
+.question[
 You can omit the names of first two arguments when building plots with `ggplot()`.
 ]
 
@@ -921,7 +924,7 @@ ggplot(penguins,
 
 ## Shape
 
-Mapped to same variable as `colour`
+Mapped to same variable as `color`
 
 .pull-left[
 
@@ -1064,7 +1067,7 @@ class:inverse
 .question[
 In the next few slides describe what each plot displays. Think about how the code relates to the output.
 
-**Note:** The plots in the next few slides do not have proper titles, axis labels, etc. because we want you to figure out what's happening in the plots.
+Note: The plots in the next few slides do not have proper titles, axis labels, etc. because we want you to figure out what's happening in the plots.
 But you should always label your plots!
 ]
 

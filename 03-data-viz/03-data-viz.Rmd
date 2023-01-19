@@ -99,8 +99,10 @@ class: middle
 
 ## What is EDA?
 
-- Exploratory data analysis (EDA) is an approach to analysing data sets to summarize its main characteristics
+- Exploratory data analysis (EDA) is an approach to analyzing data sets to summarize its main characteristics
+
 - Often, this is visual -- this is what we'll focus on first
+
 - But we might also calculate summary statistics and perform data wrangling/manipulation/transformation at (or before) this stage of the analysis -- this is what we'll focus on next
 
 ---
@@ -295,6 +297,7 @@ ggplot(quartet, aes(x = x, y = y)) +
 ```
 
 ---
+class: inverse
 
 ## Age at first kiss
 
@@ -312,7 +315,7 @@ ggplot(student_survey, aes(x = first_kiss)) +
 ```
 
 ---
-
+class: inverse
 ## Facebook visits
 
 .question[ 
@@ -332,13 +335,13 @@ ggplot(student_survey, aes(x = fb_visits_per_day)) +
 
 class: middle
 
-# Let's look at ggplot2 more closely using `r emo::ji("penguin")`
+## Let's look at ggplot2 more closely using `r emo::ji("penguin")`
 
 ---
 
 ## Data: Palmer Penguins
 
-Measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
+Data package containing measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
 
 .pull-left-narrow[
 ```{r echo=FALSE, out.width="80%"}
@@ -715,7 +718,7 @@ Finally, use a discrete colour scale that is designed to be perceived by viewers
 class: inverse
 ## Argument names
 
-.tip[
+.question[
 You can omit the names of first two arguments when building plots with `ggplot()`.
 ]
 
@@ -802,7 +805,7 @@ ggplot(penguins,
 
 ## Shape
 
-Mapped to same variable as `colour`
+Mapped to same variable as `color`
 
 .pull-left[
 ```{r shape-species, fig.show = "hide", warning = FALSE}
@@ -935,7 +938,7 @@ class:inverse
 .question[
 In the next few slides describe what each plot displays. Think about how the code relates to the output.
 
-**Note:** The plots in the next few slides do not have proper titles, axis labels, etc. because we want you to figure out what's happening in the plots.
+Note: The plots in the next few slides do not have proper titles, axis labels, etc. because we want you to figure out what's happening in the plots.
 But you should always label your plots!
 ]
 
