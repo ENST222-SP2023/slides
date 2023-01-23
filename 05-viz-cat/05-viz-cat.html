@@ -29,7 +29,7 @@ layout: true
   
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://enst320-2022sp.netlify.app" target="_blank"&gt;ENST 320: Environmental Data Science&lt;/a&gt;
+&lt;a href="https://enst222.github.io/website" target="_blank"&gt;ENST 222: Environmental Data Science&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
@@ -46,6 +46,7 @@ class: middle
 ## Variables
 
 - **Numerical** variables can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only non-negative whole numbers, respectively.
+
 - If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
 ---
@@ -82,7 +83,7 @@ class: middle
 
 ---
 
-## Bar plot
+## Bar plot: one categorical variable
 
 
 ```r
@@ -90,11 +91,11 @@ ggplot(loans, aes(x = homeownership)) +
   geom_bar()
 ```
 
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Segmented bar plot
+## Segmented bar plot: two categorical variables
 
 
 ```r
@@ -103,11 +104,11 @@ ggplot(loans, aes(x = homeownership,
   geom_bar()
 ```
 
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Segmented bar plot
+## Segmented bar plot: two categorical variables
 
 
 ```r
@@ -115,19 +116,19 @@ ggplot(loans, aes(x = homeownership, fill = grade)) +
 * geom_bar(position = "fill")
 ```
 
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
-
+class:inverse
 .question[
 Which bar plot is a more useful representation for visualizing the relationship between homeownership and grade?
 ]
 
 .pull-left[
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -136,7 +137,7 @@ Which bar plot is a more useful representation for visualizing the relationship 
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -163,14 +164,15 @@ class: middle
 
 ---
 
-## Already talked about...
+## We already talked about...
 
 - Coloring and faceting histograms and density plots
+
 - Side-by-side box plots
 
 ---
 
-## Violin plots
+## Violin plots: probability density turned sideways
 
 
 ```r
@@ -178,11 +180,11 @@ ggplot(loans, aes(x = homeownership, y = loan_amount)) +
   geom_violin()
 ```
 
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Ridge plots
+### Ridge plots: multiple probability density distributions
 
 
 ```r
@@ -191,7 +193,7 @@ ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) +
   geom_density_ridges(alpha = 0.5)
 ```
 
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-10-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-10-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -199,7 +201,7 @@ ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) +
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -215,7 +217,7 @@ ggplot(starwars[1:20,], aes(x = name, y = height)) +
 ### Plot `name` on the y-axis for better viz
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -233,7 +235,7 @@ ggplot(starwars[1:20,],
 ### Reorder `name` by `height` for even better viz (and clean up labels and theme)
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="u2-d04-viz-cat_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -255,7 +257,9 @@ ggplot(starwars[1:20,],
 ## If you finish the application exercise early...
 
 - Explore other [ggplot geoms](https://ivelasq.rbind.io/blog/other-geoms/?utm_source=pocket_mylist)!
-- Explore different [ggplot theme packages](https://towardsdatascience.com/themes-to-spice-up-visualizations-with-ggplot2-3e275038dafa)! 
+
+- Explore different [ggplot theme packages](https://towardsdatascience.com/themes-to-spice-up-visualizations-with-ggplot2-3e275038dafa)!
+
 - Explore different [color palette packages](https://github.com/EmilHvitfeldt/r-color-palettes)!
 
 ---

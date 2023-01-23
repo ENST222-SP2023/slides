@@ -32,6 +32,7 @@ class: middle
 ## Variables
 
 - **Numerical** variables can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only non-negative whole numbers, respectively.
+
 - If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
 ---
@@ -54,7 +55,7 @@ class: middle
 
 ---
 
-## Bar plot
+## Bar plot: one categorical variable
 
 ```{r}
 ggplot(loans, aes(x = homeownership)) +
@@ -63,7 +64,7 @@ ggplot(loans, aes(x = homeownership)) +
 
 ---
 
-## Segmented bar plot
+## Segmented bar plot: two categorical variables
 
 ```{r}
 ggplot(loans, aes(x = homeownership, 
@@ -73,7 +74,7 @@ ggplot(loans, aes(x = homeownership,
 
 ---
 
-## Segmented bar plot
+## Segmented bar plot: two categorical variables
 
 ```{r}
 ggplot(loans, aes(x = homeownership, fill = grade)) +
@@ -81,7 +82,7 @@ ggplot(loans, aes(x = homeownership, fill = grade)) +
 ```
 
 ---
-
+class:inverse
 .question[
 Which bar plot is a more useful representation for visualizing the relationship between homeownership and grade?
 ]
@@ -132,14 +133,15 @@ class: middle
 
 ---
 
-## Already talked about...
+## We already talked about...
 
 - Coloring and faceting histograms and density plots
+
 - Side-by-side box plots
 
 ---
 
-## Violin plots
+## Violin plots: probability density turned sideways
 
 ```{r warning = FALSE}
 ggplot(loans, aes(x = homeownership, y = loan_amount)) +
@@ -148,7 +150,7 @@ ggplot(loans, aes(x = homeownership, y = loan_amount)) +
 
 ---
 
-## Ridge plots
+### Ridge plots: multiple probability density distributions
 
 ```{r warning = FALSE}
 library(ggridges)
@@ -218,7 +220,9 @@ ggplot(starwars[1:20,],
 ## If you finish the application exercise early...
 
 - Explore other [ggplot geoms](https://ivelasq.rbind.io/blog/other-geoms/?utm_source=pocket_mylist)!
-- Explore different [ggplot theme packages](https://towardsdatascience.com/themes-to-spice-up-visualizations-with-ggplot2-3e275038dafa)! 
+
+- Explore different [ggplot theme packages](https://towardsdatascience.com/themes-to-spice-up-visualizations-with-ggplot2-3e275038dafa)!
+
 - Explore different [color palette packages](https://github.com/EmilHvitfeldt/r-color-palettes)!
 
 ---
