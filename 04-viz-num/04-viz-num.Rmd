@@ -33,7 +33,9 @@ class: middle
 ## Number of variables involved
 
 - Univariate data analysis - distribution of single variable
+
 - Bivariate data analysis - relationship between two variables
+
 - Multivariate data analysis - relationship between many variables at once, usually focusing on the relationship between two while conditioning for others
 
 ---
@@ -41,6 +43,7 @@ class: middle
 ## Types of variables
 
 - **Numerical variables** can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only non-negative whole numbers, respectively.
+
 - If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
 ---
@@ -131,13 +134,16 @@ class: middle
 
 ---
 
-## Describing shapes of numerical distributions
+## Describing numerical data distributions
 
 - shape:
     - skewness: right-skewed, left-skewed, symmetric (skew is to the side of the longer tail)
     - modality: unimodal, bimodal, multimodal, uniform
+    
 - center: mean (`mean`), median (`median`), mode (not always useful)
+
 - spread: range (`range`), standard deviation (`sd`), inter-quartile range (`IQR`)
+
 - unusual observations
 
 ---
@@ -257,7 +263,7 @@ class: middle
 
 ---
 
-## Density plot
+## Density plot: like a histogram but shows a smoothed probability density estimate
 
 ```{r}
 ggplot(loans, aes(x = loan_amount)) +
@@ -266,7 +272,7 @@ ggplot(loans, aes(x = loan_amount)) +
 
 ---
 
-## Density plots and adjusting bandwidth
+## Density plots and adjusting "bandwidth" or amount of smoothing
 
 .panelset[
 .panel[.panel-name[adjust = 0.5]
@@ -344,7 +350,7 @@ class: middle
 
 ---
 
-## Box plot
+## Box plot with one numeric variable
 
 ```{r}
 ggplot(loans, aes(x = interest_rate)) +
@@ -388,7 +394,7 @@ ggplot(loans, aes(x = interest_rate)) +
 
 ---
 
-## Adding a categorical variable
+## Adding a categorical variable to a boxplot
 
 .panelset[
 .panel[.panel-name[Plot]
@@ -414,7 +420,7 @@ ggplot(loans, aes(x = interest_rate,
 
 class: middle
 
-# Relationships numerical variables
+# Relationships between numerical variables
 
 ---
 
