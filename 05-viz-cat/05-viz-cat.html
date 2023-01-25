@@ -36,7 +36,108 @@ layout: true
 ---
 
 
+class: middle
+# Tips
 
+---
+class: inverse
+
+## Be cognizant of chunk ticks
+
+.pull-left[
+Make sure your code is in the gray area of a chunk in between the lines containing the back-ticks and curly brackets. 
+
+.question[What is wrong with this code chunk?]
+]
+
+.pull-right[
+![chunk problem](img/chunks.png)
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+
+```r
+ggplot(mtcars, aes(x = mpg, y = disp) +
+       geom_point())
+```
+
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+
+```r
+ggplot(mtcars, aes(x = mpg, y = disp) +
+       geom_point()
+```
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+
+```r
+ggplot(mtcars, aes(x = mpg, y = disp)) +
+       geom_point()
+```
+
+]
+---
+## Enter your PAT each time you start a new R session
+
+- Type `credentials::set_github_pat("your-PAT")` into the console. 
+
+- Replace your-PAT with the long string of letters and numbers you generated in GitHub
+
+- Your PAT should be cached in RStudio Cloud for 12 hours. You might as well just get into the habit of setting it at the beginning of each new session in which you need to push to or pull from GitHub.
+
+- Save your PAT somewhere on your local computer that is quickly accessible
+
+- **NEVER** include your PAT in a .Rmd file. This is equivalent to including your private password in a shared document.   
+---
+### Keyboard shortcuts (see Help / Keyboard shortcuts help for more info)
+
+**Insert chunk:** Insert a chunk into your .Rmd
+- Mac: cmd + I
+- PC: ctrl + I
+  
+**Run current line of code:** Place your cursor on code that you would like to run in your .Rmd.
+- Mac: cmd + enter
+- PC: ctrol + enter
+
+**Pull up command history:** Place your cursor in the console and hit the up arrow. Your most recent command will appear. Hit the up arrow to see the command you ran before that, etc. 
+
+---
 class: middle
 
 # Recap
@@ -91,7 +192,7 @@ ggplot(loans, aes(x = homeownership)) +
   geom_bar()
 ```
 
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -104,7 +205,7 @@ ggplot(loans, aes(x = homeownership,
   geom_bar()
 ```
 
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -116,7 +217,7 @@ ggplot(loans, aes(x = homeownership, fill = grade)) +
 * geom_bar(position = "fill")
 ```
 
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 class:inverse
@@ -125,10 +226,10 @@ Which bar plot is a more useful representation for visualizing the relationship 
 ]
 
 .pull-left[
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -137,7 +238,7 @@ Which bar plot is a more useful representation for visualizing the relationship 
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -180,7 +281,7 @@ ggplot(loans, aes(x = homeownership, y = loan_amount)) +
   geom_violin()
 ```
 
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -193,7 +294,7 @@ ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) +
   geom_density_ridges(alpha = 0.5)
 ```
 
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-10-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -201,7 +302,7 @@ ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) +
 
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -217,7 +318,7 @@ ggplot(starwars[1:20,], aes(x = name, y = height)) +
 ### Plot `name` on the y-axis for better viz
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-15-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 
@@ -235,7 +336,7 @@ ggplot(starwars[1:20,],
 ### Reorder `name` by `height` for even better viz (and clean up labels and theme)
 .panelset[
 .panel[.panel-name[Plot]
-&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-viz-cat_files/figure-html/unnamed-chunk-16-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 .panel[.panel-name[Code]
 

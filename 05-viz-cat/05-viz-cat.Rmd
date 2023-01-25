@@ -22,7 +22,105 @@ library(openintro)
 loans_full_schema <- loans_full_schema %>%
   mutate(grade = factor(grade, ordered = TRUE))
 ```
+class: middle
+# Tips
 
+---
+class: inverse
+
+## Be cognizant of chunk ticks
+
+.pull-left[
+Make sure your code is in the gray area of a chunk in between the lines containing the back-ticks and curly brackets. 
+
+.question[What is wrong with this code chunk?]
+]
+
+.pull-right[
+![chunk problem](img/chunks.png)
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+```{r, include = TRUE, eval = FALSE}
+ggplot(mtcars, aes(x = mpg, y = disp) +
+       geom_point())
+```
+
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+```{r, include = TRUE, eval = FALSE}
+ggplot(mtcars, aes(x = mpg, y = disp) +
+       geom_point()
+```
+]
+---
+class: inverse
+## Be cognizant of parentheses
+
+.pull-left[
+- Make sure every open parenthesis (or bracket) is closed
+
+- Make sure to close parentheses in the correct place (when you have a lot of nested functions, incorrectly closing your parentheses is very easy to do)
+
+.question[What is wrong with this code?]
+]
+
+.pull-right[
+```{r, include = TRUE, eval = FALSE}
+ggplot(mtcars, aes(x = mpg, y = disp)) +
+       geom_point()
+```
+
+]
+---
+## Enter your PAT each time you start a new R session
+
+- Type `credentials::set_github_pat("your-PAT")` into the console. 
+
+- Replace your-PAT with the long string of letters and numbers you generated in GitHub
+
+- Your PAT should be cached in RStudio Cloud for 12 hours. You might as well just get into the habit of setting it at the beginning of each new session in which you need to push to or pull from GitHub.
+
+- Save your PAT somewhere on your local computer that is quickly accessible
+
+- **NEVER** include your PAT in a .Rmd file. This is equivalent to including your private password in a shared document.   
+---
+### Keyboard shortcuts (see Help / Keyboard shortcuts help for more info)
+
+**Insert chunk:** Insert a chunk into your .Rmd
+- Mac: cmd + I
+- PC: ctrl + I
+  
+**Run current line of code:** Place your cursor on code that you would like to run in your .Rmd.
+- Mac: cmd + enter
+- PC: ctrol + enter
+
+**Pull up command history:** Place your cursor in the console and hit the up arrow. Your most recent command will appear. Hit the up arrow to see the command you ran before that, etc. 
+
+---
 class: middle
 
 # Recap
