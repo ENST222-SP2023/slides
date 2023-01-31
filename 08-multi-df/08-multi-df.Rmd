@@ -1,7 +1,7 @@
 ---
 title: "Working with multiple data frames"
-subtitle: "<br><br> ENST 320: Environmental Data Science"
-author: "[https://enst320-2022sp.netlify.app/](https://enst320-2022sp.netlify.app/)"
+subtitle: "<br><br> ENST 222: Environmental Data Science"
+author: "[https://enst222.github.io/website/](https://enst222.github.io/website/)"
 output:
   xaringan::moon_reader:
     css: ["../xaringan-themer.css", "../slides.css"]
@@ -40,6 +40,7 @@ professions <- read_csv("data/scientists/professions.csv")
 dates <- read_csv("data/scientists/dates.csv")
 works <- read_csv("data/scientists/works.csv")
 ```
+class:inverse 
 
 ## Data: Women in science 
 
@@ -129,9 +130,8 @@ something_join(x, y)
 - `right_join()`: all rows from y
 - `full_join()`: all rows from both x and y
 - `semi_join()`: all rows from x where there are matching values in y, keeping just columns from x
-- `inner_join()`: all rows from x where there are matching values in y, return 
-all combination of multiple matches in the case of multiple matches
-- `anti_join()`: return all rows from x where there are not matching values in y, never duplicate rows of x
+- `inner_join()`: all rows from x where there are matching values in y
+- `anti_join()`: return all rows from x where there are not matching values in y
 - ...
  
 ---
@@ -176,6 +176,7 @@ include_graphics("img/left-join.gif")
 ```{r}
 left_join(x, y)
 ```
+Join x and y, keeping all rows from x. Remove rows from y that do not match x. 
 ]
 
 ---
@@ -200,6 +201,7 @@ include_graphics("img/right-join.gif")
 ```{r}
 right_join(x, y)
 ```
+Join x and y, keeping all rows from y. Remove rows from x that do not match y.
 ]
 
 ---
@@ -225,6 +227,7 @@ include_graphics("img/full-join.gif")
 ```{r}
 full_join(x, y)
 ```
+Join x and y, keeping all rows from both x and y. Fill missing values with `NA`.
 ]
 
 ---
@@ -249,6 +252,7 @@ include_graphics("img/inner-join.gif")
 ```{r}
 inner_join(x, y)
 ```
+Join x and y, only keeping rows that match both x and y. Remove all other rows.
 ]
 
 ---
@@ -273,6 +277,7 @@ include_graphics("img/semi-join.gif")
 ```{r}
 semi_join(x, y)
 ```
+Keep all rows in x where there are matching values in y, keeping just columns from x. In other words filter x so that it contains observations that are also in y. 
 ]
 
 ---
@@ -297,6 +302,7 @@ include_graphics("img/anti-join.gif")
 ```{r}
 anti_join(x, y)
 ```
+Return all rows from x where there are not matching values in y, keeping just columns from x. 
 ]
 
 ---

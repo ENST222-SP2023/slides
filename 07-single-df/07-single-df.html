@@ -90,7 +90,6 @@ hotels %&gt;%
 
 ## `select` to exclude variables
 
-.small[
 
 ```r
 hotels %&gt;%
@@ -115,7 +114,6 @@ hotels %&gt;%
 ## #   previous_bookings_not_canceled &lt;dbl&gt;,
 ## #   reserved_room_type &lt;chr&gt;, assigned_room_type &lt;chr&gt;, …
 ```
-]
 
 ---
 
@@ -293,7 +291,6 @@ This is useful for leaving comments in your code and for temporarily disabling
 certain lines of code while debugging.
 ]
 
-.small[
 
 ```r
 hotels %&gt;%
@@ -315,7 +312,6 @@ hotels %&gt;%
 ## #   adults &lt;dbl&gt;, children &lt;dbl&gt;, babies &lt;dbl&gt;, meal &lt;chr&gt;,
 ...
 ```
-]
 
 ---
 
@@ -411,29 +407,43 @@ hotels %&gt;%
 ```
 
 ---
-class:inverse
-## Logical operators in R
+class: inverse
 
+## Logical operators in R
 &lt;br&gt;
 
-operator    | definition                   || operator     | definition
-------------|------------------------------||--------------|----------------
-`&lt;`         | less than                    ||`x`&amp;nbsp;&amp;#124;&amp;nbsp;`y`     | `x` OR `y` 
-`&lt;=`        |	less than or equal to        ||`is.na(x)`    | test if `x` is `NA`
-`&gt;`         | greater than                 ||`!is.na(x)`   | test if `x` is not `NA`
-`&gt;=`        |	greater than or equal to     ||`x %in% y`    | test if `x` is in `y`
-`==`        |	exactly equal to             ||`!(x %in% y)` | test if `x` is not in `y`
-`!=`        |	not equal to                 ||`!x`          | not `x`
-`x &amp; y`     | `x` AND `y`                  ||              |
+.pull-left[
+operator       |     definition                    
+---------------|   ------------------------------
+`&lt;`            |     less than                     
+`&lt;=`           |	    less than or equal to        
+`&gt;`            |     greater than                 
+`&gt;=`           |	    greater than or equal to     
+`==`           |	    exactly equal to             
+`!=`           |	    not equal to                 
+`x &amp; y`        |     `x` AND `y`                                
+]
 
+.pull-right[
+operator     | definition
+--------------|----------------
+`x`&amp;nbsp;&amp;#124;&amp;nbsp;`y`     | `x` OR `y`
+`is.na(x)`    | test if `x` is `NA`
+`!is.na(x)`   | test if `x` is not `NA`
+`x %in% y`    | test if `x` is in `y`
+`!(x %in% y)` | test if `x` is not in `y`
+`!x`          | not `x`
+]
 ---
+
 class:inverse
+
 .your-turn[
 ### Your turn!
 
-Time to actually play around with the Hotels dataset!
+Time to play around with the Hotels dataset!
 
-- Go to RStudio Cloud and start `AE 04 - Hotels + Data wrangling`.
+- Go to RStudio Cloud and start `AE 05 - Hotels + Data wrangling`.
 
 - Open the R Markdown document and complete Exercises 1 - 4.
 ]
@@ -703,7 +713,7 @@ class:inverse
 .your-turn[
 ### Your turn!
 
-- Go back to RStudio Cloud and continue `AE 04 - Hotels + Data wrangling`.
+- Go back to RStudio Cloud and continue `AE 05 - Hotels + Data wrangling`.
 
 - Open the R Markdown document and complete Exercises 5 and 6.
 ]
@@ -994,7 +1004,7 @@ class:inverse
 
 Time to actually play around with the Hotels dataset!
 
-- Go to RStudio Cloud and start `AE 04 - Hotels + Data wrangling`.
+- Go to RStudio Cloud and start `AE 05 - Hotels + Data wrangling`.
 
 - Open the R Markdown document and complete Exercises 7 and 8.
 ]
