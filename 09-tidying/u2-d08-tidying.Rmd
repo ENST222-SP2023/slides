@@ -1,7 +1,7 @@
 ---
 title: "Tidying data"
 subtitle: "<br><br> Environmental Data Science"
-author: "[https://enst320-2022sp.netlify.app/](https://enst320-2022sp.netlify.app/)"
+author: "[https://enst222.github.io/website/](https://enst222.github.io/website/)"
 output:
   xaringan::moon_reader:
     css: ["../xaringan-themer.css", "../slides.css"]
@@ -26,12 +26,13 @@ options(
 ```
 
 class: middle
+class: inverse
 
 # .hand[We...]
 
-.huge[.green[have]] .hand[data organised in an unideal way for our analysis]
+.huge[.green[have]] .hand[data organized in an unideal way for our analysis]
 
-.huge[.pink[want]] .hand[to reorganise the data to carry on with our analysis]
+.huge[.pink[want]] .hand[to reorganize the data to carry on with our analysis]
 
 ---
 
@@ -244,8 +245,8 @@ purchases %>%
 
 .pull-left-narrow[
 - `data` (as usual)
-- `names_from`: which column in the long format contains the what should be column names in the wide format
-- `values_from`: which column in the long format contains the what should be values in the new columns in the wide format
+- `names_from`: column in long format containing what should be column names in the wide format
+- `values_from`:column in long format containing what should be values in the new columns in the wide format
 ]
 .pull-right-wide[
 ```{r}
