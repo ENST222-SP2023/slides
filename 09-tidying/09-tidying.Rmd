@@ -408,5 +408,156 @@ ggplot(trump_longer,
 ```{r ref.label="trump-plot-2", echo = FALSE, out.width="75%", fig.width=6}
 ```
 ]
+]
+
+---
+class: middle
+
+# More tidying tips
+
+---
+
+## Use `separate` if two (or more) variables are contained in one column
+
+```{r}
+table3
+```
+
+---
+
+## Use `separate` if two (or more) variables are contained in one column
+
+```{r}
+table3 %>%
+  separate(rate, 
+           into = c("cases", "population"), 
+           sep = "/") #<<
+```
+*Note that cases and population are character values. Use `convert = TRUE` to try and convert into a better data type.*
+
+---
+
+## Use `separate` if two (or more) variables are contained in one column
+
+```{r}
+table3 %>%
+  separate(rate, 
+           into = c("cases", "population"), 
+           sep = "/", 
+           convert = TRUE) #<<
+```
+*Now cases and population are integers.*
+
+---
+
+## Use `unite` to gather data contained in two columns into one column
+
+```{r}
+table5
+```
+
+---
+
+## Use `unite` to gather data contained in two columns into one column
+
+```{r}
+table5 %>%
+  unite(date, century, year)
+```
+
+*Note the default is to separate the two values with `_`. Use `sep = ""` to remove the separator.
+
+---
+
+## Use `unite` to gather data contained in two columns into one column
+
+```{r}
+table5 %>%
+  unite(date, century, year,
+        sep = "") #<<
+```
+
+*Now the separator has been removed but date is a character. `convert = TRUE` doesn't work with the `unite()` function, but we can wrangle further to coerce into a number.
+
+---
+## Use `unite` to gather data contained in two columns into one column
+
+```{r}
+table5 %>%
+  unite(date, century, year,
+        sep = "") %>%
+  mutate(date = as.integer(date)) #<<
+```
+
+*Now year is an integer.*
+
+---
+
+## Handling missing values
+
+.pull-left[
+How many missing values are in this dataset?
+]
+
+.pull-right[
+```{r, include = FALSE}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+
+```
+
+```{r}
+stocks
+```
 
 ]
+---
+
+## Handling missing values
+
+.pull-left[
+How many missing values are in this dataset?
+
+Two!
+
+* Return for 2015 qtr 4 is made explicit with a NA
+* Return for 2016 qtr 1 is implicitly missing because it is not included in the data
+]
+
+.pull-right[
+```{r, include = FALSE}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+
+```
+
+```{r}
+stocks
+```
+
+]
+---
+
+## Use `drop_na` if you do not want your data to include `NA`s
+
+```{r}
+stocks %>%
+  drop_na(return)
+```
+
+---
+
+## Use `complete` if you want to explicitly include all missing values
+
+```{r}
+stocks %>%
+  complete(year, qtr)
+```
+
+Output includes returns for all possible combinations of `year` and `qtr`
