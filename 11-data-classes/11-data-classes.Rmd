@@ -1,11 +1,11 @@
 ---
 title: "Data classes"
-subtitle: "<br><br> Introduction to Data Science"
-author: "[introds.org](https://introds.org/)"
-date: "<br> Dr. Mine Çetinkaya-Rundel"
+subtitle: "<br><br> Enviromental Data Science"
+author: "[https://enst222.github.io/website/](https://enst222.github.io/website/)"
+date: ""
 output:
   xaringan::moon_reader:
-    css: ["../../xaringan-themer.css", "../../slides.css"]
+    css: ["../xaringan-themer.css", "../slides.css"]
     lib_dir: libs
     nature:
       ratio: "16:9"
@@ -14,13 +14,14 @@ output:
       countIncrementalSlides: false
 ---
 
-```{r child = "../../setup.Rmd"}
+```{r child = "../setup.Rmd"}
 ```
 
 ```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(DT)
 library(scales)
+library(lubridate)
 ```
 
 class: middle
@@ -31,7 +32,7 @@ class: middle
 
 ## Data classes
 
-We talked about *types* so far, next we'll introduce the concept of *classes*
+We've talked about *types* so far, next we'll introduce the concept of *classes*
 
 - Vectors are like Lego building blocks
 
@@ -129,7 +130,7 @@ class(df)
 
 ## Lists
 
-Lists are a generic vector container vectors of any type can go in them
+Lists are a generic vector container. Vectors of any type can go in them.
 
 ```{r}
 l <- list(
@@ -167,7 +168,7 @@ class: middle
 cat_lovers <- read_csv("data/cat-lovers.csv")
 ```
 
-## Read data in as character strings
+## The data are read data in as character strings
 
 ```{r}
 glimpse(cat_lovers)
@@ -175,7 +176,7 @@ glimpse(cat_lovers)
 
 ---
 
-## But coerce when plotting
+## Defaut plot of "handedness" counts
 
 ```{r out.width="60%"}
 ggplot(cat_lovers, mapping = aes(x = handedness)) +
@@ -184,7 +185,7 @@ ggplot(cat_lovers, mapping = aes(x = handedness)) +
 
 ---
 
-## Use forcats to manipulate factors
+### Use the forcats package to manipulate factors
 
 ```{r out.width="55%"}
 cat_lovers %>%
@@ -218,9 +219,9 @@ knitr::include_graphics("img/forcats-part-of-tidyverse.png")
 .your-turn[
 ### .hand[Your turn!]
 
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Hotels + Data types` > `hotels-forcats.Rmd` > knit
+- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Hotels + Data types` > `forcats.Rmd` > knit
 - Recreate the x-axis of the following plot. 
-- **Stertch goal:** Recreate the y-axis.
+- **Stertch goal: Recreate the y-axis.**
 ]
 ]
 
@@ -264,12 +265,12 @@ knitr::include_graphics("img/lubridate-not-part-of-tidyverse.png")
 ]
 .pull-right[
 - **lubridate** is the tidyverse-friendly package that makes dealing with dates a little easier
-- It's not one of the *core* tidyverse packages, hence it's installed with `install.packages("tidyverse)` but it's not loaded with it, and needs to be explicitly loaded with `library(lubridate)`
+
+- It's not one of the *core* tidyverse packages: it's installed with `install.packages("tidyverse)` but it's not loaded with it and needs to be explicitly loaded with `library(lubridate)`
 ]
 
 ---
-
-class: middle
+class: middle, inverse
 
 .hand[.light-blue[
 we're just going to scratch the surface of working with dates in R here...
@@ -277,128 +278,163 @@ we're just going to scratch the surface of working with dates in R here...
 
 ---
 
-.question[
-Calculate and visualise the number of bookings on any given arrival date.
-]
+## Dates and times in R
+
+- A **date**. Tibbles print this as <`date>`.
+
+- A **time** within a day. Tibbles print this as `<time>`.
+
+- A **date-time** is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). Tibbles print this as `<dttm>`. Elsewhere in R these are called POSIXct, but I don’t think that’s a very useful name.
+
+---
+
+## When you read in data, check data types
 
 ```{r}
-hotels %>%
-  select(starts_with("arrival_"))
+flats <- read_csv("data/flats_sub_2015.csv")
+flats
 ```
+
+--
+
+- `date` was read in as a character
+- `time` was read in as a time
+- `datetime` was read in as a character
 
 ---
 
-## Step 1. Construct dates
+## Why is this a problem?
 
-.midi[
-```{r output.lines=7}
-library(glue)
-
-hotels %>%
-  mutate(
-    arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}") #<<
-    ) %>% 
-  relocate(arrival_date)
-```
-]
-
----
-
-## Step 2. Count bookings per date
-
-.midi[
 ```{r}
-hotels %>%
-  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %>%
-  count(arrival_date)
+ggplot(flats, aes(x = datetime, y = depth_m)) +
+  geom_point()
 ```
-]
 
 ---
 
-## Step 3. Visualise bookings per date
+## Why is this a problem?
 
-.midi[
-```{r out.width="80%", fig.asp = 0.4}
-hotels %>%
-  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %>%
-  count(arrival_date) %>%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
-  geom_line()
-```
-]
-
----
-
-.hand[zooming in a bit...]
-
-.question[
-Why does the plot start with August when we know our data start in July? And why does 10 August come after 1 August?
-]
-
-.midi[
-```{r out.width="80%", echo=FALSE, fig.asp = 0.4}
-hotels %>%
-  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %>%
-  count(arrival_date) %>%
-  slice(1:7) %>%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
-  geom_line()
-```
-]
-
----
-
-## Step 1. *REVISED* Construct dates "as dates"
-
-.midi[
-```{r output.lines=7}
-library(lubridate)
-
-hotels %>%
-  mutate(
-    arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) #<<
-    ) %>% 
-  relocate(arrival_date)
-```
-]
-
----
-
-## Step 2. Count bookings per date
-
-.midi[
 ```{r}
-hotels %>%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
-  count(arrival_date)
+ggplot(flats[1:5,], aes(x = datetime, y = depth_m)) +
+  geom_point()
 ```
-]
 
 ---
 
-## Step 3a. Visualise bookings per date
+## Why is this a problem?
 
-.midi[
-```{r out.width="80%", fig.asp = 0.4}
-hotels %>%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
-  count(arrival_date) %>%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
+```{r}
+ggplot(flats, aes(x = datetime, y = depth_m)) +
   geom_line()
 ```
+
+---
+
+## Using the `lubridate` functions
+
+- `Lubridate` works out the date/time format once you specify the order of components
+
+  - Identify the order in which year, month, and day appear in your dates
+  
+  - Then arrange “y”, “m”, and “d” (year, month, day) and "h", "m", and "s" (hour, minute, second) in the same order.
+  
+  - That gives you the name of the `lubridate` function that will parse your date.
+  
+  - The resulting output is always in **yyyy-mm-dd** format
+
+---
+
+## Using the `lubridate` functions
+
+.small[
+```{r}
+ymd("2017-01-31")
+
+mdy("January 31st, 2017")
+
+dmy("31-Jan-2017")
+
+ymd_hms("2017-01-31 3:15:00")
+
+ymd_hm("2017-01-31 3:15")
+
+ymd(20170131)
+```
+]
+---
+
+## Coerce `flats` data into dates and datetimes
+
+```{r}
+flats1 <- flats %>%
+  mutate(datetime = mdy_hm(datetime), #<<
+         date = mdy(date)) #<<
+
+flats1
+```
+
+---
+
+## Now it knows the dates are actually datetimes
+
+.panelset[
+.panel[.panel-name[Plot]
+```{r ref.label = "date-fix", echo = FALSE, warning = FALSE}
+```
+]
+.panel[.panel-name[Code]
+```{r date-fix, fig.show = "hide", warning = FALSE}
+ggplot(flats1, aes(x = datetime, y = depth_m)) +
+  geom_line() +
+  labs(x = "", y = "Depth (m)") +
+  theme_minimal()
+```
+]
 ]
 
 ---
 
-## Step 3b. Visualise using a smooth curve
+## What if your data contain year, month, day, etc. in separate columns?
 
-.midi[
-```{r out.width="80%", fig.asp = 0.4, message = FALSE}
-hotels %>%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
-  count(arrival_date) %>%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
-  geom_smooth() #<<
+```{r}
+flats2 <- flats1 %>%
+  select(date, depth_m) %>%
+  separate(date, c("year", "month", "day"))
+flats2
+```
+
+---
+
+## What if your data contain year, month, day, etc. in separate columns?
+
+Use the `make_date()` or `make_datetime` functions!
+
+```{r}
+flats2 %>%
+  mutate(date = make_date(year, month, day)) %>% #<<
+  select(date, depth_m)
+```
+
+---
+
+## What if you want to get individual components of date/time data?
+Use the `year()`, `month()`, `mday()` (day of the month), `yday()` (day of the year, also known as julian day), `wday()` (day of the week), `hour()`, `minute()` or `second()` functions
+.pull-left[
+```{r}
+datetime <- ymd_hms("2022-02-14 12:34:56")
+
+year(datetime)
+
+month(datetime)
+```
+]
+
+.pull-right[
+```{r}
+mday(datetime)
+
+yday(datetime)
+
+wday(datetime)
 ```
 ]

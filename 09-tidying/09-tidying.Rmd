@@ -465,7 +465,7 @@ table5 %>%
   unite(date, century, year)
 ```
 
-*Note the default is to separate the two values with `_`. Use `sep = ""` to remove the separator.
+*Note the default is to separate the two values with `_`. Use `sep = ""` to remove the separator.*
 
 ---
 
@@ -477,7 +477,7 @@ table5 %>%
         sep = "") #<<
 ```
 
-*Now the separator has been removed but date is a character. `convert = TRUE` doesn't work with the `unite()` function, but we can wrangle further to coerce into a number.
+*Now the separator has been removed but date is a character. `convert = TRUE` doesn't work with the `unite()` function, but we can wrangle further to coerce into a number.*
 
 ---
 ## Use `unite` to gather data contained in two columns into one column

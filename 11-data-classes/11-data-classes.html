@@ -3,25 +3,21 @@
   <head>
     <title>Data classes</title>
     <meta charset="utf-8" />
-    <meta name="author" content="introds.org" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-    <script src="libs/anchor-sections/anchor-sections.js"></script>
+    <meta name="author" content="https://enst222.github.io/website/" />
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
-    <link rel="stylesheet" href="../../xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="../../slides.css" type="text/css" />
+    <link rel="stylesheet" href="../xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../slides.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
 # Data classes
-## <br><br> Introduction to Data Science
-### <a href="https://introds.org/">introds.org</a>
-### <br> Dr. Mine Çetinkaya-Rundel
+## <br><br> Enviromental Data Science
+### <a href="https://enst222.github.io/website/">https://enst222.github.io/website/</a>
 
 ---
 
@@ -33,7 +29,7 @@ layout: true
   
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://introds.org" target="_blank"&gt;introds.org&lt;/a&gt;
+&lt;a href="https://enst222.github.io/website" target="_blank"&gt;ENST 222: Environmental Data Science&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
@@ -49,7 +45,7 @@ class: middle
 
 ## Data classes
 
-We talked about *types* so far, next we'll introduce the concept of *classes*
+We've talked about *types* so far, next we'll introduce the concept of *classes*
 
 - Vectors are like Lego building blocks
 
@@ -223,7 +219,7 @@ class(df)
 
 ## Lists
 
-Lists are a generic vector container vectors of any type can go in them
+Lists are a generic vector container. Vectors of any type can go in them.
 
 
 ```r
@@ -284,7 +280,7 @@ class: middle
 
 
 
-## Read data in as character strings
+## The data are read data in as character strings
 
 
 ```r
@@ -294,14 +290,14 @@ glimpse(cat_lovers)
 ```
 ## Rows: 60
 ## Columns: 3
-## $ name           &lt;chr&gt; "Bernice Warren", "Woodrow Stone", "Wil…
-## $ number_of_cats &lt;chr&gt; "0", "0", "1", "3", "3", "2", "1", "1",…
-## $ handedness     &lt;chr&gt; "left", "left", "left", "left", "left",…
+## $ name           &lt;chr&gt; "Bernice Warren", "Woodrow Stone", "Will…
+## $ number_of_cats &lt;chr&gt; "0", "0", "1", "3", "3", "2", "1", "1", …
+## $ handedness     &lt;chr&gt; "left", "left", "left", "left", "left", …
 ```
 
 ---
 
-## But coerce when plotting
+## Defaut plot of "handedness" counts
 
 
 ```r
@@ -309,11 +305,11 @@ ggplot(cat_lovers, mapping = aes(x = handedness)) +
   geom_bar()
 ```
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-15-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-15-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Use forcats to manipulate factors
+### Use the forcats package to manipulate factors
 
 
 ```r
@@ -323,7 +319,7 @@ cat_lovers %&gt;%
   geom_bar()
 ```
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-16-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-16-1.png" width="55%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -348,13 +344,13 @@ cat_lovers %&gt;%
 .your-turn[
 ### .hand[Your turn!]
 
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) &gt; `AE 05 - Hotels + Data types` &gt; `hotels-forcats.Rmd` &gt; knit
+- [RStudio Cloud](http://rstd.io/dsbox-cloud) &gt; `AE 05 - Hotels + Data types` &gt; `forcats.Rmd` &gt; knit
 - Recreate the x-axis of the following plot. 
-- **Stertch goal:** Recreate the y-axis.
+- **Stertch goal: Recreate the y-axis.**
 ]
 ]
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -371,12 +367,12 @@ class: middle
 ]
 .pull-right[
 - **lubridate** is the tidyverse-friendly package that makes dealing with dates a little easier
-- It's not one of the *core* tidyverse packages, hence it's installed with `install.packages("tidyverse)` but it's not loaded with it, and needs to be explicitly loaded with `library(lubridate)`
+
+- It's not one of the *core* tidyverse packages: it's installed with `install.packages("tidyverse)` but it's not loaded with it and needs to be explicitly loaded with `library(lubridate)`
 ]
 
 ---
-
-class: middle
+class: middle, inverse
 
 .hand[.light-blue[
 we're just going to scratch the surface of working with dates in R here...
@@ -384,199 +380,297 @@ we're just going to scratch the surface of working with dates in R here...
 
 ---
 
-.question[
-Calculate and visualise the number of bookings on any given arrival date.
-]
+## Dates and times in R
 
+- A **date**. Tibbles print this as &lt;`date&gt;`.
 
-```r
-hotels %&gt;%
-  select(starts_with("arrival_"))
-```
+- A **time** within a day. Tibbles print this as `&lt;time&gt;`.
 
-```
-## # A tibble: 119,390 x 4
-##   arrival_date_ye… arrival_date_mo… arrival_date_we…
-##              &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;
-## 1             2015 July                           27
-## 2             2015 July                           27
-## 3             2015 July                           27
-## 4             2015 July                           27
-## 5             2015 July                           27
-## 6             2015 July                           27
-## # … with 119,384 more rows, and 1 more variable:
-## #   arrival_date_day_of_month &lt;dbl&gt;
-```
+- A **date-time** is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). Tibbles print this as `&lt;dttm&gt;`. Elsewhere in R these are called POSIXct, but I don’t think that’s a very useful name.
 
 ---
 
-## Step 1. Construct dates
+## When you read in data, check data types
 
-.midi[
 
 ```r
-library(glue)
-
-hotels %&gt;%
-  mutate(
-*   arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")
-    ) %&gt;% 
-  relocate(arrival_date)
+flats &lt;- read_csv("data/flats_sub_2015.csv")
+flats
 ```
 
 ```
-## # A tibble: 119,390 x 33
-##   arrival_date hotel is_canceled lead_time arrival_date_ye…
-##   &lt;glue&gt;       &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
-## 1 2015 July 1  Reso…           0       342             2015
-## 2 2015 July 1  Reso…           0       737             2015
-## 3 2015 July 1  Reso…           0         7             2015
-## 4 2015 July 1  Reso…           0        13             2015
-...
+## # A tibble: 672 × 10
+##   date   time     datetime  depth_m salin…¹    ph do_mg_l turb_…²
+##   &lt;chr&gt;  &lt;time&gt;   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 7/1/15 00:00:24 7/1/15 0…   0.741    0.12  8.53   10.2      1.9
+## 2 7/1/15 00:15:24 7/1/15 0…   0.706    0.12  8.45    9.91     2  
+## 3 7/1/15 00:30:24 7/1/15 0…   0.687    0.12  8.38    9.68     1.9
+## 4 7/1/15 00:45:24 7/1/15 0…   0.684    0.12  8.29    9.47     2  
+## 5 7/1/15 01:00:23 7/1/15 1…   0.73     0.12  7.94    8.49     6.1
+## 6 7/1/15 01:15:24 7/1/15 1…   0.683    0.12  7.67    7.9      6.1
+## # … with 666 more rows, 2 more variables: chl_ug_l &lt;dbl&gt;,
+## #   t_c &lt;dbl&gt;, and abbreviated variable names ¹​salinity_ppt,
+## #   ²​turb_ntu
 ```
-]
+
+--
+
+- `date` was read in as a character
+- `time` was read in as a time
+- `datetime` was read in as a character
 
 ---
 
-## Step 2. Count bookings per date
+## Why is this a problem?
 
-.midi[
 
 ```r
-hotels %&gt;%
-  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %&gt;%
-  count(arrival_date)
+ggplot(flats, aes(x = datetime, y = depth_m)) +
+  geom_point()
 ```
 
-```
-## # A tibble: 793 x 2
-##   arrival_date       n
-##   &lt;glue&gt;         &lt;int&gt;
-## 1 2015 August 1    110
-## 2 2015 August 10   207
-## 3 2015 August 11   117
-## 4 2015 August 12   133
-## 5 2015 August 13   107
-## 6 2015 August 14   329
-## # … with 787 more rows
-```
-]
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-21-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Step 3. Visualise bookings per date
+## Why is this a problem?
 
-.midi[
 
 ```r
-hotels %&gt;%
-  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %&gt;%
-  count(arrival_date) %&gt;%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
+ggplot(flats[1:5,], aes(x = datetime, y = depth_m)) +
+  geom_point()
+```
+
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-22-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Why is this a problem?
+
+
+```r
+ggplot(flats, aes(x = datetime, y = depth_m)) +
   geom_line()
 ```
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-]
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-23-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-.hand[zooming in a bit...]
+## Using the `lubridate` functions
 
-.question[
-Why does the plot start with August when we know our data start in July? And why does 10 August come after 1 August?
-]
+- `Lubridate` works out the date/time format once you specify the order of components
 
-.midi[
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-]
+  - Identify the order in which year, month, and day appear in your dates
+  
+  - Then arrange “y”, “m”, and “d” (year, month, day) and "h", "m", and "s" (hour, minute, second) in the same order.
+  
+  - That gives you the name of the `lubridate` function that will parse your date.
+  
+  - The resulting output is always in **yyyy-mm-dd** format
 
 ---
 
-## Step 1. *REVISED* Construct dates "as dates"
+## Using the `lubridate` functions
 
-.midi[
+.small[
 
 ```r
-library(lubridate)
-
-hotels %&gt;%
-  mutate(
-*   arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))
-    ) %&gt;% 
-  relocate(arrival_date)
+ymd("2017-01-31")
 ```
 
 ```
-## # A tibble: 119,390 x 33
-##   arrival_date hotel is_canceled lead_time arrival_date_ye…
-##   &lt;date&gt;       &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
-## 1 2015-07-01   Reso…           0       342             2015
-## 2 2015-07-01   Reso…           0       737             2015
-## 3 2015-07-01   Reso…           0         7             2015
-## 4 2015-07-01   Reso…           0        13             2015
-...
+## [1] "2017-01-31"
 ```
+
+```r
+mdy("January 31st, 2017")
+```
+
+```
+## [1] "2017-01-31"
+```
+
+```r
+dmy("31-Jan-2017")
+```
+
+```
+## [1] "2017-01-31"
+```
+
+```r
+ymd_hms("2017-01-31 3:15:00")
+```
+
+```
+## [1] "2017-01-31 03:15:00 UTC"
+```
+
+```r
+ymd_hm("2017-01-31 3:15")
+```
+
+```
+## [1] "2017-01-31 03:15:00 UTC"
+```
+
+```r
+ymd(20170131)
+```
+
+```
+## [1] "2017-01-31"
+```
+]
+---
+
+## Coerce `flats` data into dates and datetimes
+
+
+```r
+flats1 &lt;- flats %&gt;%
+* mutate(datetime = mdy_hm(datetime),
+*        date = mdy(date))
+
+flats1
+```
+
+```
+## # A tibble: 672 × 10
+##   date       time     datetime            depth_m salinit…¹    ph
+##   &lt;date&gt;     &lt;time&gt;   &lt;dttm&gt;                &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 2015-07-01 00:00:24 2015-07-01 00:00:00   0.741      0.12  8.53
+## 2 2015-07-01 00:15:24 2015-07-01 00:15:00   0.706      0.12  8.45
+## 3 2015-07-01 00:30:24 2015-07-01 00:30:00   0.687      0.12  8.38
+## 4 2015-07-01 00:45:24 2015-07-01 00:45:00   0.684      0.12  8.29
+## 5 2015-07-01 01:00:23 2015-07-01 01:00:00   0.73       0.12  7.94
+## 6 2015-07-01 01:15:24 2015-07-01 01:15:00   0.683      0.12  7.67
+## # … with 666 more rows, 4 more variables: do_mg_l &lt;dbl&gt;,
+## #   turb_ntu &lt;dbl&gt;, chl_ug_l &lt;dbl&gt;, t_c &lt;dbl&gt;, and abbreviated
+## #   variable name ¹​salinity_ppt
+```
+
+---
+
+## Now it knows the dates are actually datetimes
+
+.panelset[
+.panel[.panel-name[Plot]
+&lt;img src="11-data-classes_files/figure-html/unnamed-chunk-26-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+.panel[.panel-name[Code]
+
+```r
+ggplot(flats1, aes(x = datetime, y = depth_m)) +
+  geom_line() +
+  labs(x = "", y = "Depth (m)") +
+  theme_minimal()
+```
+]
 ]
 
 ---
 
-## Step 2. Count bookings per date
+## What if your data contain year, month, day, etc. in separate columns?
 
-.midi[
 
 ```r
-hotels %&gt;%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %&gt;% 
-  count(arrival_date)
+flats2 &lt;- flats1 %&gt;%
+  select(date, depth_m) %&gt;%
+  separate(date, c("year", "month", "day"))
+flats2
 ```
 
 ```
-## # A tibble: 793 x 2
-##   arrival_date     n
-##   &lt;date&gt;       &lt;int&gt;
-## 1 2015-07-01     122
-## 2 2015-07-02      93
-## 3 2015-07-03      56
-## 4 2015-07-04      88
-## 5 2015-07-05      53
-## 6 2015-07-06      75
-## # … with 787 more rows
+## # A tibble: 672 × 4
+##   year  month day   depth_m
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1 2015  07    01      0.741
+## 2 2015  07    01      0.706
+## 3 2015  07    01      0.687
+## 4 2015  07    01      0.684
+## 5 2015  07    01      0.73 
+## 6 2015  07    01      0.683
+## # … with 666 more rows
 ```
-]
 
 ---
 
-## Step 3a. Visualise bookings per date
+## What if your data contain year, month, day, etc. in separate columns?
 
-.midi[
+Use the `make_date()` or `make_datetime` functions!
+
 
 ```r
-hotels %&gt;%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %&gt;% 
-  count(arrival_date) %&gt;%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
-  geom_line()
+flats2 %&gt;%
+* mutate(date = make_date(year, month, day)) %&gt;%
+  select(date, depth_m)
 ```
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-27-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-]
+```
+## # A tibble: 672 × 2
+##   date       depth_m
+##   &lt;date&gt;       &lt;dbl&gt;
+## 1 2015-07-01   0.741
+## 2 2015-07-01   0.706
+## 3 2015-07-01   0.687
+## 4 2015-07-01   0.684
+## 5 2015-07-01   0.73 
+## 6 2015-07-01   0.683
+## # … with 666 more rows
+```
 
 ---
 
-## Step 3b. Visualise using a smooth curve
-
-.midi[
+## What if you want to get individual components of date/time data?
+Use the `year()`, `month()`, `mday()` (day of the month), `yday()` (day of the year, also known as julian day), `wday()` (day of the week), `hour()`, `minute()` or `second()` functions
+.pull-left[
 
 ```r
-hotels %&gt;%
-  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %&gt;% 
-  count(arrival_date) %&gt;%
-  ggplot(aes(x = arrival_date, y = n, group = 1)) +
-* geom_smooth()
+datetime &lt;- ymd_hms("2022-02-14 12:34:56")
+
+year(datetime)
 ```
 
-&lt;img src="w4-d03-data-classes_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+```
+## [1] 2022
+```
+
+```r
+month(datetime)
+```
+
+```
+## [1] 2
+```
+]
+
+.pull-right[
+
+```r
+mday(datetime)
+```
+
+```
+## [1] 14
+```
+
+```r
+yday(datetime)
+```
+
+```
+## [1] 45
+```
+
+```r
+wday(datetime)
+```
+
+```
+## [1] 2
+```
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
