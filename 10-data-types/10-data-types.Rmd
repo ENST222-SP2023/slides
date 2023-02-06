@@ -5,7 +5,7 @@ author: "[https://enst222.github.io/website/](https://enst222.github.io/website/
 date: ""
 output:
   xaringan::moon_reader:
-    css: ["../../xaringan-themer.css", "../../slides.css"]
+    css: ["../xaringan-themer.css", "../slides.css"]
     lib_dir: libs
     nature:
       ratio: "16:9"
