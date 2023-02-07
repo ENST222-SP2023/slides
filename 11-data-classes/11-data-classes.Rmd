@@ -214,40 +214,14 @@ knitr::include_graphics("img/forcats-part-of-tidyverse.png")
 ]
 
 ---
-
+class: inverse
 .small[
 .your-turn[
 ### .hand[Your turn!]
 
-- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 05 - Hotels + Data types` > `forcats.Rmd` > knit
-- Recreate the x-axis of the following plot. 
-- **Stertch goal: Recreate the y-axis.**
+- [RStudio Cloud](http://rstd.io/dsbox-cloud) > `AE 08 - data types and classes` > `forcats.Rmd` 
 ]
 ]
-
-```{r echo=FALSE, out.width="90%", fig.asp=0.4}
-hotels <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv")
-hotels %>%
-  mutate(arrival_date_month = fct_relevel(arrival_date_month, month.name)) %>%
-  group_by(hotel, arrival_date_month) %>%   # group by hotel type and arrival month
-  summarise(mean_adr = mean(adr)) %>%       # calculate mean_adr for each group
-  ggplot(aes(
-    x = arrival_date_month,
-    y = mean_adr,                           # y-axis is the mean_adr calculated above
-    group = hotel,                          # group lines by hotel type
-    color = hotel)                          # and color by hotel type
-    ) +
-  geom_line() +                             # use lines to represent data
-  scale_y_continuous(labels = label_dollar()) +
-  theme_minimal() +                         # use a minimal theme
-  labs(x = "Arrival month",                 # customize labels
-       y = "Mean ADR (average daily rate)",
-       title = "Comparison of resort and city hotel prices across months",
-       subtitle = "Resort hotel prices soar in the summer while city hotel prices remain\nrelatively constant throughout the year",
-       color = "Hotel type") +
-  scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
-```
-
 ---
 
 class: middle
