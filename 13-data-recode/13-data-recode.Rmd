@@ -16,37 +16,44 @@ output:
 ```{r child = "../setup.Rmd"}
 ```
 
-```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(janitor)
-```
+---
 
 ### There are a LOT of different ways to recode and transform your data in R. 
 
 We will cover a few of them, but Google is your friend to figure out how to recode in your own unique use cases.
 ---
 
-### Recode species so that setosa = "a", versicolor = "b", and virginica = "c"
+## Code-along
 
 .pull-left[
-```{r, echo = FALSE}
+First load packages:
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+```
+]
+
+.pull-right[
+Then tidy the data:
+```{r}
 iris <- as_tibble(iris) %>%
   clean_names()
 
 iris
 ```
+]
+---
 
+### Recode species so that setosa = "a", versicolor = "b", and virginica = "c"
+
+.pull-left[
 ```{r}
 distinct(iris, species)
 ```
 ]
-
-.pull-right[
-
-]
 ---
 
-## Use `mutate()` and `case_match()` to replace values
+## Use `mutate()` and `case_match()` to replace or "recode" values
 
 ```{r}
 iris %>%
@@ -71,6 +78,7 @@ iris %>%
 
 ## Use `mutate()` and `if_else()` if you want to replace values based on certain conditions
 
+If `petal_length` is less than three, recode `petal_length` to "short". Otherwise recode `petal_length` to "long".
 ```{r}
 iris
 ```
@@ -79,6 +87,7 @@ iris
 
 ## Use `mutate()` and `if_else()` if you want to replace values based on certain conditions
 
+If `petal_length` is less than three, recode `petal_length` to "short". Otherwise recode `petal_length` to "long".
 ```{r}
 iris %>%
   mutate(petal_length = if_else(petal_length < 3, "short", "long")) #<<
@@ -97,6 +106,7 @@ iris %>%
 
 ## Use `case_when()` for more complicated conditional statements
 
+If `petal_length` is less than or equal to 2, recode `petal_length` to "small". If `petal_length` is greater than 2 and less than or equal to 5, recode to "medium". If `petal_length` is greater than 5, recode to "large".
 ```{r}
 iris %>%
   mutate(petal_category = case_when(petal_length <= 2 ~ "small", #<<
@@ -109,6 +119,7 @@ iris %>%
 
 ### Use `TRUE` to index values that were not already defined
 
+For all other values of `petal_length`, recode to "other".
 ```{r}
 iris %>%
   mutate(petal_category = case_when(petal_length <= 2 ~ "small", 
@@ -179,7 +190,7 @@ storms %>%
 
 ---
 
-### Next, create a `decade` variable using`mutate()` and `case_when()` based on the `year` variable
+### Next, create a `decade` variable using `mutate()` and `case_when()` based on the `year` variable
 
 .panelset[
 
