@@ -892,3 +892,16 @@ ggplot(brexit, aes(x = fct_infreq(opinion))) +
 ## There are many `ggplot()` theme packages out there as well
 
 [Themes to spice up visualizations with ggplot2](https://towardsdatascience.com/themes-to-spice-up-visualizations-with-ggplot2-3e275038dafa)
+
+---
+class: inverse
+
+## ae-10-ugly-viz-challenge
+
+### [code share](https://codeshare.io/WdR33l)
+
+### [score sheet](https://docs.google.com/spreadsheets/d/1VJj5mH2h3QwvilC3gMoQNVhHtZqj8qdGQ2ApFgQArmk/edit?usp=sharing)
+
+- [data viz checklist](https://datainnovationproject.org/wp-content/uploads/2017/04/2_Data-Visualization-Checklist_May2014-2-1.pdf)
+
+- [modify ggplot theme](https://ggplot2.tidyverse.org/reference/theme.html)
