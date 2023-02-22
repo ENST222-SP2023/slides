@@ -3,7 +3,7 @@
   <head>
     <title>Doing data science</title>
     <meta charset="utf-8" />
-    <meta name="author" content="https://enst320-2022sp.netlify.app/" />
+    <meta name="author" content="https://enst222.github.io/website/" />
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 
 # Doing data science
 ## <br><br> Environmental Data Science
-### <a href="https://enst320-2022sp.netlify.app/">https://enst320-2022sp.netlify.app/</a>
+### <a href="https://enst222.github.io/website/">https://enst222.github.io/website/</a>
 
 ---
 
@@ -29,7 +29,7 @@ layout: true
   
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://enst320-2022sp.netlify.app" target="_blank"&gt;ENST 320: Environmental Data Science&lt;/a&gt;
+&lt;a href="https://enst222.github.io/website" target="_blank"&gt;ENST 222: Environmental Data Science&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
@@ -80,16 +80,16 @@ Jeffery T. Leek and Roger D. Peng. "What is the question?." Science 347.6228 (20
 
 ## Ex: COVID-19 and Vitamin D
 
-1. **Descriptive:** frequency of hospitalisations due to COVID-19 in a set of data collected from a group of individuals
+1. **Descriptive:** frequency of hospitalizations due to COVID-19 in a set of data collected from a group of individuals
 --
 
-1. **Exploratory:** examine relationships between a range of dietary factors and COVID-19 hospitalisations
+1. **Exploratory:** examine relationships between a range of dietary factors and COVID-19 hospitalizations
 --
 
 1. **Inferential:** examine whether any relationship between taking Vitamin D supplements and COVID-19 hospitalizations found in the sample hold for the population at large
 
 --
-1. **Predictive:** what types of people will take Vitamin D supplements during the next year
+1. **Predictive:** predict what types of people will take Vitamin D supplements during the next year
 
 --
 1. **Causal:** whether the hospitalization rate differs for people with COVID-19 who were randomly assigned to take Vitamin D supplements vs. those who were not assigned to take Vitamin D 
@@ -98,17 +98,32 @@ Jeffery T. Leek and Roger D. Peng. "What is the question?." Science 347.6228 (20
 1. **Mechanistic:** how increased vitamin D intake leads to a reduction in the number of viral illnesses
 
 ---
+class:inverse
 
-## Questions to data science problems
+## Questions to ask when begining an analysis
 
 - Do you have appropriate data to answer your question?
-- Do you have information on confounding variables?
+
+- Do you have information on confounding variables (other variables that can affect the variable(s) of interest)?
+
 - Was the data you're working with collected in a way that introduces bias?
 
---
+---
+class: inverse
+
+## Confounding
 
 .question[
-Suppose I want to estimate the average number of children in households in Edinburgh. I conduct a survey at an elementary school in Edinburgh and ask students at this elementary school how many children, including themselves, live in their house. Then, I take the average of the responses. Is this a biased or an unbiased estimate of the number of children in households in Edinburgh? If biased, will the value be an overestimate or underestimate?
+Suppose I collect data on sunburns and ice cream consumption and find that higher ice cream consumption is associated with a higher probability of sunburn. Does that mean that ice cream consumption causes sunburn? What might be a confounding variable? Can you think of an environmental example? How can we control for confounding variables in our analyses?  
+]
+---
+
+class: inverse
+
+## Bias
+
+.question[
+Suppose I want to estimate the average number of children in households in St. Mary's County. I conduct a survey at an elementary school in the county and ask students at this elementary school how many children, including themselves, live in their house. Then, I take the average of the responses. Is this a biased or an unbiased estimate of the number of children in households in the county? If biased, will the value be an overestimate or underestimate? How can we minimze bias in our analyses?
 ]
 
 ---
@@ -134,9 +149,11 @@ class: middle
 ## Formulate your question
 
 - Consider scope:
+
   - Are air pollution levels higher on the east coast than on the west coast?
   - Are hourly ozone levels on average higher in New York City than they are in Los Angeles?
   - Do counties in the eastern United States have higher ozone levels than counties in the western United States?
+  
 - Most importantly: "Do I have the right data to answer this question?"
 
 ---
@@ -155,20 +172,21 @@ fav_food
 
 ```
 ## # A tibble: 5 × 6
-##   `Student ID` `Full Name`  favourite.food  mealPlan  AGE   SES  
-##          &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;
-## 1            1 Sunil Huffm… Strawberry yog… Lunch on… 4     High 
-## 2            2 Barclay Lynn French fries    Lunch on… 5     Midd…
-## 3            3 Jayendra Ly… N/A             Breakfas… 7     Low  
-## 4            4 Leon Rossini Anchovies       Lunch on… 99999 Midd…
-## 5            5 Chidiegwu D… Pizza           Breakfas… five  High
+##   `Student ID` `Full Name`      favourite.f…¹ mealP…² AGE   SES  
+##          &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
+## 1            1 Sunil Huffmann   Strawberry y… Lunch … 4     High 
+## 2            2 Barclay Lynn     French fries  Lunch … 5     Midd…
+## 3            3 Jayendra Lyne    N/A           Breakf… 7     Low  
+## 4            4 Leon Rossini     Anchovies     Lunch … 99999 Midd…
+## 5            5 Chidiegwu Dunkel Pizza         Breakf… five  High 
+## # … with abbreviated variable names ¹​favourite.food, ²​mealPlan
 ```
 
 ---
 
 ## `clean_names()`
 
-If the variable names are malformatted, use `janitor::clean_names()`
+If the variable names are not formatted in snake_case, use `janitor::clean_names()`
 
 
 ```r
@@ -178,13 +196,14 @@ fav_food %&gt;% clean_names()
 
 ```
 ## # A tibble: 5 × 6
-##   student_id full_name   favourite_food   meal_plan   age   ses  
-##        &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;
-## 1          1 Sunil Huff… Strawberry yogh… Lunch only  4     High 
-## 2          2 Barclay Ly… French fries     Lunch only  5     Midd…
-## 3          3 Jayendra L… N/A              Breakfast … 7     Low  
-## 4          4 Leon Rossi… Anchovies        Lunch only  99999 Midd…
-## 5          5 Chidiegwu … Pizza            Breakfast … five  High
+##   student_id full_name        favourite_food  meal_…¹ age   ses  
+##        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;
+## 1          1 Sunil Huffmann   Strawberry yog… Lunch … 4     High 
+## 2          2 Barclay Lynn     French fries    Lunch … 5     Midd…
+## 3          3 Jayendra Lyne    N/A             Breakf… 7     Low  
+## 4          4 Leon Rossini     Anchovies       Lunch … 99999 Midd…
+## 5          5 Chidiegwu Dunkel Pizza           Breakf… five  High 
+## # … with abbreviated variable name ¹​meal_plan
 ```
 
 ---
@@ -218,7 +237,7 @@ dim(squirrels)
 ```
 
 ```
-## [1] 3023   38
+## [1] 3023   35
 ```
 
 ---
@@ -231,22 +250,22 @@ squirrels %&gt;% head()
 ```
 
 ```
-## # A tibble: 6 × 38
-##    long   lat unique_squirrel_id hectare NS    EW    shift
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-## 1 -74.0  40.8 13A-PM-1014-04     13A     13    A     PM   
-## 2 -74.0  40.8 15F-PM-1010-06     15F     15    F     PM   
-## 3 -74.0  40.8 19C-PM-1018-02     19C     19    C     PM   
-## 4 -74.0  40.8 21B-AM-1019-04     21B     21    B     AM   
-## 5 -74.0  40.8 23A-AM-1018-02     23A     23    A     AM   
-## 6 -74.0  40.8 38H-PM-1012-01     38H     38    H     PM   
-## # … with 31 more variables: date &lt;date&gt;,
-## #   hectare_squirrel_number &lt;dbl&gt;, age &lt;chr&gt;,
-## #   primary_fur_color &lt;chr&gt;, highlight_fur_color &lt;chr&gt;,
+## # A tibble: 6 × 35
+##    long   lat unique_squ…¹ hectare shift date       hecta…² age  
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;chr&gt;
+## 1 -74.0  40.8 13A-PM-1014… 13A     PM    2018-10-14       4 &lt;NA&gt; 
+## 2 -74.0  40.8 15F-PM-1010… 15F     PM    2018-10-10       6 Adult
+## 3 -74.0  40.8 19C-PM-1018… 19C     PM    2018-10-18       2 Adult
+## 4 -74.0  40.8 21B-AM-1019… 21B     AM    2018-10-19       4 &lt;NA&gt; 
+## 5 -74.0  40.8 23A-AM-1018… 23A     AM    2018-10-18       2 Juve…
+## 6 -74.0  40.8 38H-PM-1012… 38H     PM    2018-10-12       1 Adult
+## # … with 27 more variables: primary_fur_color &lt;chr&gt;,
+## #   highlight_fur_color &lt;chr&gt;,
 ## #   combination_of_primary_and_highlight_color &lt;chr&gt;,
 ## #   color_notes &lt;chr&gt;, location &lt;chr&gt;,
 ## #   above_ground_sighter_measurement &lt;chr&gt;,
-## #   specific_location &lt;chr&gt;, running &lt;lgl&gt;, chasing &lt;lgl&gt;, …
+## #   specific_location &lt;chr&gt;, running &lt;lgl&gt;, chasing &lt;lgl&gt;,
+## #   climbing &lt;lgl&gt;, eating &lt;lgl&gt;, foraging &lt;lgl&gt;, …
 ```
 
 ---
@@ -260,22 +279,22 @@ squirrels %&gt;% tail()
 ```
 
 ```
-## # A tibble: 6 × 38
-##    long   lat unique_squirrel_id hectare NS    EW    shift
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-## 1 -74.0  40.8 6D-PM-1020-01      06D     06    D     PM   
-## 2 -74.0  40.8 21H-PM-1018-01     21H     21    H     PM   
-## 3 -74.0  40.8 31D-PM-1006-02     31D     31    D     PM   
-## 4 -74.0  40.8 37B-AM-1018-04     37B     37    B     AM   
-## 5 -74.0  40.8 21C-PM-1006-01     21C     21    C     PM   
-## 6 -74.0  40.8 7G-PM-1018-04      07G     07    G     PM   
-## # … with 31 more variables: date &lt;date&gt;,
-## #   hectare_squirrel_number &lt;dbl&gt;, age &lt;chr&gt;,
-## #   primary_fur_color &lt;chr&gt;, highlight_fur_color &lt;chr&gt;,
+## # A tibble: 6 × 35
+##    long   lat unique_squ…¹ hectare shift date       hecta…² age  
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;chr&gt;
+## 1 -74.0  40.8 6D-PM-1020-… 06D     PM    2018-10-20       1 Adult
+## 2 -74.0  40.8 21H-PM-1018… 21H     PM    2018-10-18       1 Juve…
+## 3 -74.0  40.8 31D-PM-1006… 31D     PM    2018-10-06       2 Adult
+## 4 -74.0  40.8 37B-AM-1018… 37B     AM    2018-10-18       4 Adult
+## 5 -74.0  40.8 21C-PM-1006… 21C     PM    2018-10-06       1 Adult
+## 6 -74.0  40.8 7G-PM-1018-… 07G     PM    2018-10-18       4 Adult
+## # … with 27 more variables: primary_fur_color &lt;chr&gt;,
+## #   highlight_fur_color &lt;chr&gt;,
 ## #   combination_of_primary_and_highlight_color &lt;chr&gt;,
 ## #   color_notes &lt;chr&gt;, location &lt;chr&gt;,
 ## #   above_ground_sighter_measurement &lt;chr&gt;,
-## #   specific_location &lt;chr&gt;, running &lt;lgl&gt;, chasing &lt;lgl&gt;, …
+## #   specific_location &lt;chr&gt;, running &lt;lgl&gt;, chasing &lt;lgl&gt;,
+## #   climbing &lt;lgl&gt;, eating &lt;lgl&gt;, foraging &lt;lgl&gt;, …
 ```
 ]
 
@@ -321,7 +340,7 @@ ggplot(squirrels, aes(x = long, y = lat)) +
   geom_point(alpha = 0.2)
 ```
 
-&lt;img src="u2-d12-doing-data-science_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-doing-data-science_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -336,7 +355,7 @@ ggplot(squirrels, aes(x = long, y = lat)) +
 .panelset[
 
 .panel[.panel-name[Plot]
-&lt;img src="u2-d12-doing-data-science_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-doing-data-science_files/figure-html/unnamed-chunk-11-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
 .panel[.panel-name[Code]
@@ -360,7 +379,7 @@ ggplot(squirrels, aes(x = long, y = lat, color = where)) +
 .panelset[
 
 .panel[.panel-name[Plot]
-&lt;img src="u2-d12-doing-data-science_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="16-doing-data-science_files/figure-html/unnamed-chunk-12-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
 .panel[.panel-name[Code]
@@ -416,8 +435,11 @@ squirrels %&gt;%
 ## Communicating for your audience
 
 - Avoid: Jargon, uninterpreted results, lengthy output
+
 - Pay attention to: Organization, presentation, flow
+
 - Don't forget about: Code style, coding best practices, meaningful commits
+
 - Be open to: Suggestions, feedback, taking (calculated) risks
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
