@@ -3,7 +3,7 @@
   <head>
     <title>Fitting and interpreting models</title>
     <meta charset="utf-8" />
-    <meta name="author" content="https://enst320-2022sp.netlify.app/" />
+    <meta name="author" content="https://enst222.github.io/website/" />
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
@@ -18,8 +18,8 @@
 class: center, middle, inverse, title-slide
 
 # Fitting and interpreting models
-## <br><br> Environmental Data Science
-### <a href="https://enst320-2022sp.netlify.app/">https://enst320-2022sp.netlify.app/</a>
+## <br><br> ENST 222: Environmental Data Science
+### <a href="https://enst222.github.io/website/">https://enst222.github.io/website/</a>
 
 ---
 
@@ -31,7 +31,7 @@ layout: true
   
 &lt;div class="my-footer"&gt;
 &lt;span&gt;
-&lt;a href="https://enst320-2022sp.netlify.app" target="_blank"&gt;ENST 320: Environmental Data Science&lt;/a&gt;
+&lt;a href="https://enst222.github.io/website" target="_blank"&gt;ENST 222: Environmental Data Science&lt;/a&gt;
 &lt;/span&gt;
 &lt;/div&gt; 
 
@@ -61,7 +61,7 @@ pp &lt;- read_csv("data/paris-paintings.csv", na = c("n/a", "", "NA"))
 
 `$$\widehat{height}_{i} = \beta_0 + \beta_1 \times width_{i}$$`
 
-&lt;img src="u4-d02-fitting-interpreting-models_files/figure-html/height-width-plot-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="19-fitting-interpreting-models_files/figure-html/height-width-plot-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -115,7 +115,7 @@ linear_reg() %&gt;%
 ```
 ## parsnip model object
 ## 
-## Fit time:  6ms 
+## Fit time:  10ms 
 ## 
 ## Call:
 ## stats::lm(formula = Height_in ~ Width_in, data = data)
@@ -133,7 +133,7 @@ linear_reg() %&gt;%
 ```
 ## parsnip model object
 ## 
-## Fit time:  3ms 
+## Fit time:  5ms 
 ## 
 ## Call:
 ## stats::lm(formula = Height_in ~ Width_in, data = data)
@@ -227,6 +227,7 @@ class: middle
 - The regression line minimizes the sum of squared residuals.
 
 --
+
 - If `\(e_i = y_i - \hat{y}_i\)`, then, the regression line minimizes 
 `\(\sum_{i = 1}^n e_i^2\)`.
 
@@ -234,25 +235,25 @@ class: middle
 
 ## Visualizing residuals
 
-&lt;img src="u4-d02-fitting-interpreting-models_files/figure-html/vis-res-1-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="19-fitting-interpreting-models_files/figure-html/vis-res-1-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Visualizing residuals (cont.)
 
-&lt;img src="u4-d02-fitting-interpreting-models_files/figure-html/vis-res-2-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="19-fitting-interpreting-models_files/figure-html/vis-res-2-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Visualizing residuals (cont.)
 
-&lt;img src="u4-d02-fitting-interpreting-models_files/figure-html/vis-res-3-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="19-fitting-interpreting-models_files/figure-html/vis-res-3-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Properties of least squares regression
 
-- The regression line goes through the center of mass point, the coordinates corresponding to average `\(x\)` and average `\(y\)`, `\((\bar{x}, \bar{y})\)`:  
+- The regression line goes through the center of mass point; the coordinates correspond to average `\(x\)` and average `\(y\)`, `\((\bar{x}, \bar{y})\)`:  
 
 `$$\bar{y} = b_0 + b_1 \bar{x} ~ \rightarrow ~ b_0 = \bar{y} - b_1 \bar{x}$$`
 
@@ -348,6 +349,14 @@ linear_reg() %&gt;%
 
 
 ```r
+unique(pp$school_pntg)
+```
+
+```
+## [1] "F"    "I"    "D/FL" "X"    "S"    "G"    "A"
+```
+
+```r
 linear_reg() %&gt;%
   set_engine("lm") %&gt;%
   fit(Height_in ~ school_pntg, data = pp) %&gt;%
@@ -373,6 +382,10 @@ linear_reg() %&gt;%
 
 
 ```
+## [1] "F"    "I"    "D/FL" "X"    "S"    "G"    "A"
+```
+
+```
 ## # A tibble: 7 × 5
 ##   term            estimate std.error statistic p.value
 ##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
@@ -389,8 +402,11 @@ linear_reg() %&gt;%
 - Each coefficient describes the expected difference between heights in that particular school compared to the baseline level
 
 ---
+class: inverse 
 
 ## Categorical predictor with 3+ levels
+
+
 
 .pull-left-wide[
 &lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
@@ -504,11 +520,17 @@ linear_reg() %&gt;%
 ]
 ]
 
+- Under the hood, R creates a "contrast matrix" containing a column for each level of the categorical variable
+- Each observation is coded `1` if the value matches the column name or `0` if not
 ---
 
 ## Relationship between height and school
 
 .small[
+
+```
+## [1] "F"    "I"    "D/FL" "X"    "S"    "G"    "A"
+```
 
 ```
 ## # A tibble: 7 × 5

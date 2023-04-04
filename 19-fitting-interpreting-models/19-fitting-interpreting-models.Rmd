@@ -1,7 +1,7 @@
 ---
 title: "Fitting and interpreting models"
-subtitle: "<br><br> Environmental Data Science"
-author: "[https://enst320-2022sp.netlify.app/](https://enst320-2022sp.netlify.app/)"
+subtitle: "<br><br> ENST 222: Environmental Data Science"
+author: "[https://enst222.github.io/website/](https://enst222.github.io/website/)"
 output:
   xaringan::moon_reader:
     css: ["../xaringan-themer.css", "../slides.css"]
@@ -180,6 +180,7 @@ $$\hat{y}_{i} = b_0 + b_1~x_{i}$$
 - The regression line minimizes the sum of squared residuals.
 
 --
+
 - If $e_i = y_i - \hat{y}_i$, then, the regression line minimizes 
 $\sum_{i = 1}^n e_i^2$.
 
@@ -236,7 +237,7 @@ p +
 
 ## Properties of least squares regression
 
-- The regression line goes through the center of mass point, the coordinates corresponding to average $x$ and average $y$, $(\bar{x}, \bar{y})$:  
+- The regression line goes through the center of mass point; the coordinates correspond to average $x$ and average $y$, $(\bar{x}, \bar{y})$:  
 
 $$\bar{y} = b_0 + b_1 \bar{x} ~ \rightarrow ~ b_0 = \bar{y} - b_1 \bar{x}$$
 
@@ -300,6 +301,8 @@ $$\widehat{Height_{in}} = 22.7 - 5.645~landsALL$$
 ## Relationship between height and school
 
 ```{r ht-school}
+unique(pp$school_pntg)
+
 linear_reg() %>%
   set_engine("lm") %>%
   fit(Height_in ~ school_pntg, data = pp) %>%
@@ -317,8 +320,15 @@ linear_reg() %>%
 - Each coefficient describes the expected difference between heights in that particular school compared to the baseline level
 
 ---
+class: inverse 
 
 ## Categorical predictor with 3+ levels
+
+```{r, eval = FALSE, include = FALSE}
+#Regression analysis requires numerical variables. So, when a researcher wishes to include a categorical variable in a regression model, supplementary steps are required to make the results interpretable.
+
+#In these steps, the categorical variables are recoded into a set of separate binary variables. This recoding is called “dummy coding” and leads to the creation of a table called contrast matrix. This is done automatically by statistical software, such as R.
+```
 
 .pull-left-wide[
 ```{r echo=FALSE}
@@ -356,6 +366,8 @@ pp %>%
 ]
 ]
 
+- Under the hood, R creates a "contrast matrix" containing a column for each level of the categorical variable
+- Each observation is coded `1` if the value matches the column name or `0` if not
 ---
 
 ## Relationship between height and school
