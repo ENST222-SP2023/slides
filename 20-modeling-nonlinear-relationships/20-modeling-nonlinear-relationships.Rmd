@@ -23,6 +23,8 @@ library(tidymodels)
 library(ggtext)
 library(knitr)
 library(kableExtra)
+library(datasauRus)
+library(patchwork)
 set.seed(1234)
 options(dplyr.print_min = 10, dplyr.print_max = 6)
 ```
@@ -47,6 +49,7 @@ pp <- read_csv("data/paris-paintings.csv", na = c("n/a", "", "NA"))
 ## "Linear" models
 
 - We're fitting a "linear" model, which assumes a linear relationship between our explanatory and response variables.
+
 - But how do we assess this?
 
 ---
@@ -88,12 +91,12 @@ ht_wt_fit_aug
 glimpse(ht_wt_fit_aug)
 ```
 
-
 ---
 
 ## Looking for...
 
 - Residuals distributed randomly around 0
+
 - With no visible pattern along the x or y axes
 
 ```{r out.width = "60%", echo=FALSE}
@@ -199,9 +202,10 @@ ggplot(df, mapping = aes(x = fake_predicted, y = fake_resid)) +
 ```
 
 ---
+class: inverse
 
 .question[
-What patterns does the residuals plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between height and width of paintings?
+What pattern does the residuals plot reveal that should make us question whether a linear model is a good fit for modeling the relationship between height and width of paintings?
 ]
 
 ```{r out.width = "60%", echo=FALSE}
@@ -249,7 +253,7 @@ pp_wt_lt_100 <- pp %>%
 ```
 
 ---
-
+class: inverse
 ## Price vs. width
 
 .question[
@@ -289,11 +293,11 @@ ggplot(data = pp_wt_lt_100,
 ]
 
 ---
-
+class:inverse
 ## Price vs. width, residuals
 
 .question[
-Which plot shows a residuals that are uncorrelated with predicted values from the model? Also, what is the unit of the residuals?
+Which plot shows residuals that are uncorrelated with predicted values from the model? Also, what is the unit of the residuals?
 ]
   
 .pull-left[
@@ -356,6 +360,7 @@ be useful.
     `log(x, base = exp(1))`
     
 ---
+class:inverse
 
 ## Logged price vs. width
 
@@ -407,12 +412,14 @@ $$ \widehat{log(price)} = 4.67 + 0.0192 Width $$
 - We can use these identities to "undo" the log transformation
 
 ---
+class: inverse
 
 ## Interpreting the slope
 
 The slope coefficient for the log transformed model is 0.0192, meaning the log price difference between paintings whose widths are one inch apart is predicted to be 0.0192 log livres.
 
 --
+class:inverse
 
 .question[
 Using this information, and properties of logs that we just reviewed, fill in the blanks in the following alternate interpretation of the slope:
